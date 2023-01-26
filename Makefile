@@ -1,6 +1,6 @@
 SUBDIR :=
 
-.PHONY: all clean test run build upgrade help $(SUBDIR)
+.PHONY: all clean test run build upgrade help publish $(SUBDIR)
 
 all: $(SUBDIR) 		# default action
 	@[ -f .git/hooks/pre-commit ] || pre-commit install --install-hooks
@@ -17,6 +17,9 @@ build:				# build the binary/library
 
 upgrade:			# upgrade all the necessary packages
 	pre-commit autoupdate
+
+publish:			# quick way to push to all remote repo
+	git remote | xargs -n 1 git push
 
 help:				# show this message
 	@printf "Usage: make [OPTION]\n"
